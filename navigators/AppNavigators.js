@@ -1,4 +1,10 @@
-import {createStackNavigator, createBottomTabNavigator, createDrawerNavigator} from 'react-navigation'
+import {
+    createStackNavigator,
+    createBottomTabNavigator,
+    createDrawerNavigator,
+    SafeAreaView,
+    DrawerItems
+} from 'react-navigation'
 import HomePage from "../pages/HomePage";
 import Page1 from "../pages/Page1";
 import Page2 from "../pages/Page2";
@@ -6,43 +12,40 @@ import Page3 from "../pages/Page3";
 import Page4 from "../pages/Page4";
 import Page5 from "../pages/Page5";
 import React from "react";
-import {Button} from 'react-native';
+import {Button, ScrollView} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 
 export const DrawerNav = createDrawerNavigator({
-    Page4: {
-        screen: Page4,
-        navigationOptions: {
-            drawerLabel: 'Page4',
-            drawerIcon: ({tintColor}) => (
-                <MaterialIcons
-                    name={"drafts"}
-                    size={24}
-                    style={{color: tintColor}}
-                />
-
-            )
+        Page4: {
+            screen: Page4,
+            navigationOptions: {
+                drawerLabel: 'Page4',
+            }
+        },
+        Page5: {
+            screen: Page5,
+            navigationOptions: {
+                drawerLabel: 'Page5',
+            }
         }
     },
-    Page5: {
-        screen: Page5,
-        navigationOptions: {
-            drawerLabel: 'Page5',
-            drawerIcon: ({tintColor}) => (
-                <MaterialIcons
-                    name={"drafts"}
-                    size={24}
-                    style={{color: tintColor}}
-                />
-
-            )
-        }
-    }
-
-
-})
+    {
+        initialRouteName: 'Page5',
+        contentOptions: {
+            activeTintColor: '#fff',
+            labelStyle: {color: '#454E65'},
+        },
+        drawerPosition: 'right',
+        drawerWidth: 264,
+        contentComponent: (props) => (
+            <ScrollView style={{backgroundColor: 'rgba(46, 49, 69, 1)', flex: 1}}>
+                <SafeAreaView forceInset={{top: 'always', horizontal: 'never'}}>
+                    <DrawerItems {...props} />
+                </SafeAreaView>
+            </ScrollView>
+        )
+    })
 export const AppTabNavigator = createBottomTabNavigator({
     Page1: {
         screen: Page1,
