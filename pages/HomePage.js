@@ -26,6 +26,9 @@ export default class HomePage extends React.Component {
                 <Button
                     title='Go to TabNav'
                     onPress={() => navigation.navigate('TabNav', {title: 'tab'})}/>
+                <Button
+                    title='Go to DrawerNav'
+                    onPress={() => navigation.navigate('DrawerNav', {title: 'tab'})}/>
             </View>
         );
     }

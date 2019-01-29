@@ -1,4 +1,4 @@
 import {createAppContainer} from 'react-navigation'; // Version can be specified in package.json
 
-import {AppStackNavigator,AppTabNavigator} from './navigators/AppNavigators'
+import {AppStackNavigator} from './navigators/AppNavigators'
 export default createAppContainer(AppStackNavigator);

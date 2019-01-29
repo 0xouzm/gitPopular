@@ -1,13 +1,48 @@
-import {createStackNavigator, createBottomTabNavigator} from 'react-navigation'
+import {createStackNavigator, createBottomTabNavigator, createDrawerNavigator} from 'react-navigation'
 import HomePage from "../pages/HomePage";
 import Page1 from "../pages/Page1";
 import Page2 from "../pages/Page2";
 import Page3 from "../pages/Page3";
+import Page4 from "../pages/Page4";
+import Page5 from "../pages/Page5";
 import React from "react";
 import {Button} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 
+export const DrawerNav = createDrawerNavigator({
+    Page4: {
+        screen: Page4,
+        navigationOptions: {
+            drawerLabel: 'Page4',
+            drawerIcon: ({tintColor}) => (
+                <MaterialIcons
+                    name={"drafts"}
+                    size={24}
+                    style={{color: tintColor}}
+                />
+
+            )
+        }
+    },
+    Page5: {
+        screen: Page5,
+        navigationOptions: {
+            drawerLabel: 'Page5',
+            drawerIcon: ({tintColor}) => (
+                <MaterialIcons
+                    name={"drafts"}
+                    size={24}
+                    style={{color: tintColor}}
+                />
+
+            )
+        }
+    }
+
+
+})
 export const AppTabNavigator = createBottomTabNavigator({
     Page1: {
         screen: Page1,
@@ -60,7 +95,7 @@ export const AppStackNavigator = createStackNavigator({
     },
     Page1: {
         screen: Page1,
-        navigationOptions: ({navigation}) => ({  //()()()()()!!!
+        navigationOptions: ({navigation}) => ({  //注意加() 代表一个对象
             title: `${navigation.getParam('name', '404 not found')} page1`
         })
     },
@@ -95,6 +130,11 @@ export const AppStackNavigator = createStackNavigator({
         navigationOptions: {
             title: 'This is TabNavigator'
         }
-    }
-
+    },
+    DrawerNav: {
+        screen: DrawerNav,
+        navigationOptions: {
+            title: 'This is DrawerNavigator'
+        }
+    },
 })
