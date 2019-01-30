@@ -1,11 +1,11 @@
 import PopularPage from "./PopularPage";
 import Trending from "./Trending";
 import Favorite from "./Favorite";
+import Profile from "./Profile";
 import React, {Component} from "react";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Profile from "./Profile";
-import createMaterialBottomTabNavigator
-    from "react-navigation-material-bottom-tabs";
+
+import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs";
 
 export default HomePage = createMaterialBottomTabNavigator({
     PopularPage: {
@@ -20,7 +20,7 @@ export default HomePage = createMaterialBottomTabNavigator({
             //     {/*/>*/}
             // {/*),*/}
             tabBarIcon: ({tintColor}) => (
-                <Icon name='logo-github' color={tintColor} size={24}/>
+                <Ionicons name='logo-github' color={tintColor} size={24}/>
             ),
         }
     },
@@ -29,7 +29,7 @@ export default HomePage = createMaterialBottomTabNavigator({
         navigationOptions: {
             tabBarLabel: 'Trending',
             tabBarIcon: ({tintColor}) => (
-                <Icon name='logo-github' color={tintColor} size={24}/>
+                <Ionicons name='md-rocket' color={tintColor} size={24}/>
             ),
         }
     },
@@ -38,7 +38,7 @@ export default HomePage = createMaterialBottomTabNavigator({
         navigationOptions: {
             tabBarLabel: 'Favorite',
             tabBarIcon: ({tintColor}) => (
-                <Icon name='logo-github' color={tintColor} size={24}/>
+                <Ionicons name='ios-heart' color={tintColor} size={24}/>
             ),
         }
     },
@@ -47,17 +47,17 @@ export default HomePage = createMaterialBottomTabNavigator({
         navigationOptions: {
             tabBarLabel: 'Profile',
             tabBarIcon: ({tintColor}) => (
-                <Icon name='logo-github' color={tintColor} size={24}/>
+                <Ionicons name='md-person' color={tintColor} size={24}/>
             ),
         }
     }
 }, {
     initialRouteName: 'PopularPage',
-    activeTintColor: 'black',
-    inactiveTintColor: '#333',
+    activeTintColor: '#f0edf6',
+    inactiveTintColor: '#3e2465',
     // 缩放图标的效果
     shifting: true, // 默认在大于3个路由时为true, 如果显式的设置为true了则少于3个时也会显示效果
     barStyle: {
-        backgroundColor: 'orange',
+        backgroundColor: '#694fad',
     }
 });
