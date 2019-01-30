@@ -7,6 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createStackNavigator} from 'react-navigation'
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs";
 
+
 export default HomePage = createMaterialBottomTabNavigator({
     PopularPage: {
         screen: createStackNavigator({
