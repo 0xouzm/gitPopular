@@ -4,21 +4,21 @@ import Favorite from "./Favorite";
 import Profile from "./Profile";
 import React, {Component} from "react";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import {createStackNavigator} from 'react-navigation'
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs";
 
 export default HomePage = createMaterialBottomTabNavigator({
     PopularPage: {
-        screen: PopularPage,
+        screen: createStackNavigator({
+            PopularPage: {
+                screen: PopularPage,
+                navigationOptions: {
+                    title: 'Popular',
+                }
+            }
+        }),
         navigationOptions: {
             tabBarLabel: 'Popular',
-            // tabBarIcon: ({tintColor, focused}) => (
-            //     <Ionicons
-            //         name='logo-github'
-            //         size={23}
-            // style={focused ? {color: tintColor} : ''}
-            //     {/*/>*/}
-            // {/*),*/}
             tabBarIcon: ({tintColor}) => (
                 <Ionicons name='logo-github' color={tintColor} size={24}/>
             ),
@@ -55,8 +55,7 @@ export default HomePage = createMaterialBottomTabNavigator({
     initialRouteName: 'PopularPage',
     activeTintColor: '#f0edf6',
     inactiveTintColor: '#3e2465',
-    // 缩放图标的效果
-    shifting: true, // 默认在大于3个路由时为true, 如果显式的设置为true了则少于3个时也会显示效果
+    shifting: true, // 缩放效果，默认在大于3个路由时为true, 如果显式的设置为true了则少于3个时也会显示效果
     barStyle: {
         backgroundColor: '#694fad',
     }

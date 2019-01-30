@@ -1,9 +1,11 @@
 import React from 'react';
 import {View, Text, Button, TextInput, StyleSheet} from 'react-native';
 import DataRepo from '../expand/DataRepo'
+import {createMaterialTopTabNavigator} from 'react-navigation'
+
 
 const URL = 'https://api.github.com/search/repositories?q=';
-const QUERY_STR = '&sort=stars'
+const QUERY_STR = '&sort=stars';
 export default class PopularPage extends React.Component {
     constructor(props) {
         super(props)
@@ -36,8 +38,6 @@ export default class PopularPage extends React.Component {
         const {navigation} = this.props;
         return (
             <View style={styles.container}>
-                <Text>PopularPage</Text>
-
                 <TextInput
                     style={{height: 40, marginBottom: 10}}
                     onChangeText={text => this.text = text}
