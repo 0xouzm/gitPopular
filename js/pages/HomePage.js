@@ -3,11 +3,13 @@ import {View, Text, Button} from 'react-native';
 
 export default class HomePage extends React.Component {
     static navigationOptions = {
-        title: 'home1',
+        title: 'home',
         headerBackTitle: 'backback',
     }
 
     render() {
+        // this.props.navigation.dispatch(resetAction)
+
         const {navigation} = this.props
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>

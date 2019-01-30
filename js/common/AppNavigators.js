@@ -3,7 +3,8 @@ import {
     createBottomTabNavigator,
     createDrawerNavigator,
     SafeAreaView,
-    DrawerItems
+    DrawerItems,
+    createSwitchNavigator,
 } from 'react-navigation'
 import HomePage from "../pages/HomePage";
 import Page1 from "../pages/Page1";
@@ -11,12 +12,13 @@ import Page2 from "../pages/Page2";
 import Page3 from "../pages/Page3";
 import Page4 from "../pages/Page4";
 import Page5 from "../pages/Page5";
+import WelcomePage from "../pages/WelcomePage"
 import React from "react";
 import {Button, ScrollView} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
-export const DrawerNav = createDrawerNavigator({
+const DrawerNav = createDrawerNavigator({
         Page4: {
             screen: Page4,
             navigationOptions: {
@@ -31,7 +33,7 @@ export const DrawerNav = createDrawerNavigator({
         }
     },
     {
-        initialRouteName: 'Page5',
+        // initialRouteName: 'Page5',
         contentOptions: {
             activeTintColor: '#fff',
             labelStyle: {color: '#454E65'},
@@ -46,7 +48,7 @@ export const DrawerNav = createDrawerNavigator({
             </ScrollView>
         )
     })
-export const AppTabNavigator = createBottomTabNavigator({
+const AppTabNavigator = createBottomTabNavigator({
     Page1: {
         screen: Page1,
         navigationOptions: {
@@ -88,12 +90,11 @@ export const AppTabNavigator = createBottomTabNavigator({
     }
 })
 
-export const AppStackNavigator = createStackNavigator({
+const RootNav = createStackNavigator({
     HomePage: {
         screen: HomePage,
         navigationOptions: {
             title: 'Home',
-            headerBackTitle: 'backback',
         }
     },
     Page1: {
@@ -140,4 +141,22 @@ export const AppStackNavigator = createStackNavigator({
             title: 'This is DrawerNavigator'
         }
     },
+    WelcomePage: {
+        screen: WelcomePage,
+        navigationOptions: {
+            header: null
+        }
+    },
+}, {
+    initialRouteName: 'WelcomePage'
 })
+
+export default createSwitchNavigator(
+    {
+        WelcomePage: WelcomePage,
+        RootNav: RootNav,
+    },
+    {
+        initialRouteName: 'WelcomePage',
+    }
+);
