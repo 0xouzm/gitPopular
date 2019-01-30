@@ -1,12 +1,19 @@
 import React, {Component} from 'react'
-import {View, Text, StyleSheet, Button} from 'react-native'
+import {View, Text} from 'react-native'
 import HomePage from './HomePage'
+import {NavigationActions, StackActions} from "react-navigation";
 
-export default class WelcomePage extends Component{
-    componentDidMount(){
-        setTimeout(()=>{
+const resetAction = StackActions.reset({
+    index: 0,
+    actions: [NavigationActions.navigate({routeName: 'HomePage'})],
+});
+
+export default class WelcomePage extends Component {
+    componentDidMount() {
+        setTimeout(() => {
             this.props.navigation.navigate('HomePage')
-        },2000)
+            this.props.navigation.dispatch(resetAction);
+        }, 2000)
     }
 
     render() {
