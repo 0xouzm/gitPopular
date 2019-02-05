@@ -1,54 +1,16 @@
-import React,{Component} from 'react';
-import {View, Text, Button, TextInput, StyleSheet} from 'react-native';
+import React, {Component} from 'react';
+import {View, Text, StyleSheet, FlatList} from 'react-native';
 import DataRepo from '../expand/DataRepo'
+import RepoCell from '../common/RespoCell'
 // import {createMaterialTopTabNavigator} from 'react-navigation'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 
 const URL = 'https://api.github.com/search/repositories?q=';
 const QUERY_STR = '&sort=stars';
 export default class PopularPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.dataRepo = new DataRepo();
-        this.state = {
-            res: ''
-        }
-    }
-
-    onLoad() {
-        let url = this.genUrl(this.text);
-        this.dataRepo.fetchNetRepo(url)
-            .then(res => {
-                this.setState({
-                    res: JSON.stringify(res)
-                })
-            })
-            .catch(error => {
-                this.setState({
-                    res: JSON.stringify(error)
-                })
-            })
-    }
-
-    genUrl(key) {
-        return URL + key + QUERY_STR
-    }
 
     render() {
-        const {navigation} = this.props;
         return <View style={styles.container}>
-            {/*<TextInput*/}
-            {/*style={{height: 40, marginBottom: 10}}*/}
-            {/*onChangeText={text => this.text = text}*/}
-            {/*/>*/}
-            {/*<Button*/}
-            {/*title={'get data'}*/}
-            {/*onPress={() => {*/}
-            {/*this.onLoad()*/}
-            {/*}}*/}
-            {/*/>*/}
-            {/*<Text style={{height: 500}}>{this.state.res}</Text>*/}
-
             <ScrollableTabView
                 renderTabBar={() => <ScrollableTabBar/>}
             >
@@ -66,7 +28,8 @@ class PopularTab extends Component {
         super(props);
         this.dataRepo = new DataRepo();
         this.state = {
-            res: ''
+            res: [],
+            loaded: false
         }
     }
 
@@ -79,7 +42,7 @@ class PopularTab extends Component {
         this.dataRepo.fetchNetRepo(url)
             .then(res => {
                 this.setState({
-                    res: JSON.stringify(res)
+                    res: this.state.res.concat(res.items)
                 })
             })
             .catch(error => {
@@ -89,10 +52,17 @@ class PopularTab extends Component {
             })
     }
 
+    _renderItem({item}) {
+        return <RepoCell data={item}/>
+    }
+
     render() {
-        return <View>
-            <Text style={{height: 600}}>{this.state.res}</Text>
-        </View>
+        return <FlatList
+            data={this.state.res}
+            renderItem={this._renderItem}
+            style={styles.list}
+            keyExtractor={(item, id) => id.toString()}
+        />
     }
 }
 
@@ -100,4 +70,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
+    item: {
+        marginTop: 10,
+    }
 })
