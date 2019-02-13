@@ -16,7 +16,7 @@ export default RootNav = createStackNavigator({
     HomePage: {
         screen: HomePage,
         navigationOptions: {
-            header: null
+            header: null,
         }
     },
 }, {

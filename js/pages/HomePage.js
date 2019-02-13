@@ -1,7 +1,9 @@
 import PopularPage from "./PopularPage";
 import Trending from "./Trending";
 import Favorite from "./Favorite";
-import Profile from "./Profile";
+import Profile from "./profile/Profile";
+import CustomKeyPage from './profile/CustomKeyPage'
+
 import React, {Component} from "react";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createStackNavigator} from 'react-navigation'
@@ -15,6 +17,16 @@ export default HomePage = createMaterialBottomTabNavigator({
                 screen: PopularPage,
                 navigationOptions: {
                     title: 'Popular',
+                    headerStyle: {
+                        backgroundColor: '#694fad',
+                        elevation: 0
+                    },
+
+                    headerTitleStyle: {
+                        color: 'white',
+                        flex: 1,
+                        textAlign: 'center'
+                    },
                 }
             }
         }),
@@ -44,7 +56,27 @@ export default HomePage = createMaterialBottomTabNavigator({
         }
     },
     Profile: {
-        screen: Profile,
+        screen: createStackNavigator({
+            ProfilePage: {
+                screen: Profile,
+                navigationOptions: {
+                    title: 'Profile',
+                    headerStyle: {
+                        backgroundColor: '#694fad',
+                        elevation: 0
+                    },
+
+                    headerTitleStyle: {
+                        color: 'white',
+                        flex: 1,
+                        textAlign: 'center'
+                    },
+                }
+            },
+            CustomKey: {
+                screen: CustomKeyPage,
+            }
+        }),
         navigationOptions: {
             tabBarLabel: 'Profile',
             tabBarIcon: ({tintColor}) => (
@@ -56,8 +88,10 @@ export default HomePage = createMaterialBottomTabNavigator({
     initialRouteName: 'PopularPage',
     activeTintColor: '#f0edf6',
     inactiveTintColor: '#3e2465',
-    shifting: true, // 缩放效果，默认在大于3个路由时为true, 如果显式的设置为true了则少于3个时也会显示效果
+    // shifting: true, // 缩放效果，默认在大于3个路由时为true, 如果显式的设置为true了则少于3个时也会显示效果
+    labeled: true,
     barStyle: {
         backgroundColor: '#694fad',
+        // backgroundColor: '#f5fcff'
     }
 });

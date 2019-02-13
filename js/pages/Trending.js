@@ -7,7 +7,6 @@ export default class Trending extends React.Component {
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Text>Trending</Text>
-
             </View>
         );
     }
