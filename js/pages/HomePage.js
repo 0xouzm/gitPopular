@@ -10,6 +10,7 @@ import React, {Component} from "react";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createStackNavigator} from 'react-navigation'
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs";
+import RepoDetail from "./RepoDetail";
 
 
 export default HomePage = createMaterialBottomTabNavigator({
@@ -30,7 +31,8 @@ export default HomePage = createMaterialBottomTabNavigator({
                         textAlign: 'center'
                     },
                 }
-            }
+            },
+            RepoDetail:RepoDetail
         }),
         navigationOptions: {
             tabBarLabel: 'Popular',

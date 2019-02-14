@@ -1,5 +1,14 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, FlatList, RefreshControl, DeviceEventEmitter, ToastAndroid} from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    FlatList,
+    RefreshControl,
+    DeviceEventEmitter,
+    ToastAndroid,
+    TouchableOpacity, Image
+} from 'react-native';
 import DataRepo from '../expand/dao/DataRepo'
 import RepoCell from '../common/RespoCell'
 // import {createMaterialTopTabNavigator} from 'react-navigation'
@@ -18,13 +27,14 @@ export default class PopularPage extends React.Component {
     }
 
     componentDidMount(): void {
-        this.listener=DeviceEventEmitter.addListener('showToast', (text) => {
+        this.listener = DeviceEventEmitter.addListener('showToast', (text) => {
             ToastAndroid.show(text, ToastAndroid.SHORT);
         });
         this.loadData();
     }
+
     componentWillUnmount(): void {
-        this.listener&&this.listener.remove();
+        this.listener && this.listener.remove();
     }
 
     loadData() {
@@ -46,12 +56,11 @@ export default class PopularPage extends React.Component {
                 tabBarActiveTextColor='mintcream'
                 tabBarInactiveTextColor='white'
                 tabBarUnderlineStyle={{backgroundColor: '#e7e7e7', height: 2}}
-                renderTabBar={() => <ScrollableTabBar
-                    tabStyle={{elevation: 0}}/>}
-            >
+                renderTabBar={() => <ScrollableTabBar tabStyle={{elevation: 0}}/>}>
                 {this.state.languages.map((result, i, arr) => {
                     let lang = arr[i];
-                    return lang.checked ? <PopularTab key={i} tabLabel={lang.name}></PopularTab> : null;
+                    return lang.checked ? <PopularTab key={i} tabLabel={lang.name}
+                                                      navigation={this.props.navigation}></PopularTab> : null;
                 })}
 
             </ScrollableTabView> : null;
@@ -90,10 +99,10 @@ class PopularTab extends Component {
                 })
 
                 if (res && res.update_date && !this.dataRepo.checkDate(res.update_date)) {
-                    DeviceEventEmitter.emit('showToast','out date');
+                    DeviceEventEmitter.emit('showToast', 'out date');
                     return this.dataRepo.fetchNetRepo(url);
-                }else{
-                    DeviceEventEmitter.emit('showToast','show cache');
+                } else {
+                    DeviceEventEmitter.emit('showToast', 'show cache');
                 }
             }).then(items => {
             if (!items || items.length === 0) return;
@@ -101,7 +110,7 @@ class PopularTab extends Component {
                 res: items,
                 loaded: false
             })
-            DeviceEventEmitter.emit('showToast','show net');
+            DeviceEventEmitter.emit('showToast', 'show net');
         })
             .catch(error => {
                 this.setState({
@@ -110,9 +119,15 @@ class PopularTab extends Component {
             })
     }
 
-    _renderItem({item}) {
-        return <RepoCell data={item}/>
+
+    _onPressItem = (item) => {
+        const {navigation} = this.props;
+        // console.log(item)
+        navigation.navigate('RepoDetail', {'item': item})
     }
+
+    _renderItem = ({item}) => (<RepoCell data={item} onPressItem={() => this._onPressItem({item})}/>)
+
 
     render() {
         return <FlatList

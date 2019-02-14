@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 
-export default class RepoCell extends Component {
+export default class RepoCell extends React.PureComponent {
     render() {
-        return <TouchableOpacity style={styles.container}>
+        return <TouchableOpacity style={styles.container} onPress={this.props.onPressItem} >
             <View style={styles.cell_container}>
                 <Text style={styles.title}>{this.props.data.full_name}</Text>
                 <Text style={styles.description}>{this.props.data.description}</Text>
@@ -55,9 +55,9 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         borderRadius: 2,
         shadowColor: 'gray',
-        shadowOffset: {width:0.5, height: 0.5},
+        shadowOffset: {width: 0.5, height: 0.5},
         shadowOpacity: 0.4,
         shadowRadius: 1,
-        elevation:2
+        elevation: 2
     }
 })
