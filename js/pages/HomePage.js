@@ -3,6 +3,7 @@ import Trending from "./Trending";
 import Favorite from "./Favorite";
 import Profile from "./profile/Profile";
 import CustomKeyPage from './profile/CustomKeyPage'
+import SortKeyPage from "./profile/SortKeyPage";
 
 import React, {Component} from "react";
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -75,7 +76,10 @@ export default HomePage = createMaterialBottomTabNavigator({
             },
             CustomKey: {
                 screen: CustomKeyPage,
-            }
+            },
+            SortKeyPage: {
+                screen: SortKeyPage,
+            },
         }),
         navigationOptions: {
             tabBarLabel: 'Profile',

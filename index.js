@@ -7,6 +7,6 @@ import {AppRegistry} from 'react-native';
 import setup from './js/pages/setup';
 import {name as appName} from './app.json';
 
-YellowBox.ignoreWarnings(['Remote debugger']);
+YellowBox.ignoreWarnings(['Remote debugger','ListView is deprecated']);
 
 AppRegistry.registerComponent(appName, () => setup);

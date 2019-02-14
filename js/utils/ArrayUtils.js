@@ -9,4 +9,29 @@ export default class ArrayUtils {
         }
         array.push(item);
     }
+
+    static clone(from) {
+        if (!from) return [];
+        let newArray = [];
+        for (let i = 0, len = from.length; i < len; i++) {
+            newArray[i] = from[i];
+        }
+        return newArray;
+    }
+
+    static isEaual(arr1, arr2) {
+        if (!(arr1 && arr2)) return false;
+        if (arr1.length !== arr2.length) return false;
+        for (let i = 0, l = arr2.length; i < l; i++) {
+            if (arr1[i] !== arr2[i]) return false;
+        }
+        return true;
+    }
+
+    static remove(arr, item) {
+        if (!arr) return;
+        for (let i = 0, l = arr.length; i < l; i++) {
+            if (item === arr[i]) arr.splice(i, 1)
+        }
+    }
 };

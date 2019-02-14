@@ -13,7 +13,7 @@ export default class LanguageDao {
                 if (error) {
                     reject(error);
                 } else {
-                    if (result) {
+                    if (result && eval(result).length !== 0) {
                         try {
                             resolve(JSON.parse(result))
                         } catch (e) {
@@ -30,7 +30,8 @@ export default class LanguageDao {
     }
 
     save(data) {
-        AsyncStorage.setItem(this.flag, JSON.stringify(data), (error => {}))
+        AsyncStorage.setItem(this.flag, JSON.stringify(data), (error => {
+        }))
     }
 
 }

@@ -9,7 +9,7 @@ export default class RepoCell extends Component {
                 <Text style={styles.description}>{this.props.data.description}</Text>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                     <View style={{flexDirection: 'row'}}>
-                        <Text>Author:</Text>
+                        <Text style={{marginRight: 2}}>Author:</Text>
                         <Image style={{height: 22, width: 22}}
                                source={{uri: this.props.data.owner.avatar_url}}
                         />

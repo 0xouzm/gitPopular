@@ -10,9 +10,11 @@ export default class CustomKeyPage extends React.Component {
         super(props);
         this.langDao = new LanguageDao(FLAG_LANG.flag_key);
         this.changeValues = [];
+        this.isRemoveKey = this.props.navigation.getParam('isRemove');
         this.state = {
             dataArray: [],
-            isChecked:false,
+            isChecked: false,
+            waiting: false,
         }
     }
 
@@ -29,8 +31,7 @@ export default class CustomKeyPage extends React.Component {
     }
 
     static navigationOptions = ({navigation}) => ({
-
-        title: 'Custom Key',
+        title: navigation.getParam('isRemove') ? 'Remove Key' : 'Custom Key',
         headerLeft: ViewUtils.getLeftButton(() => navigation.state.params.onBack()),
         headerStyle: {
             backgroundColor: '#694fad',
@@ -40,7 +41,7 @@ export default class CustomKeyPage extends React.Component {
             onPress={() => navigation.state.params.onSave()}
         >
             <View style={{margin: 6}}>
-                <Text style={styles.title}>Save</Text>
+                <Text style={styles.title}>{navigation.getParam('isRemove') ? 'Remove' : 'Save'}</Text>
             </View>
         </TouchableOpacity>,
         headerTitleStyle: {
@@ -86,6 +87,11 @@ export default class CustomKeyPage extends React.Component {
             this.props.navigation.pop();
             return;
         }
+        if (this.isRemoveKey) {
+            for (let i = 0, l = this.changeValues.length; i < l; i++) {
+                ArrayUtils.remove(this.state.dataArray, this.changeValues[i])
+            }
+        }
         this.langDao.save(this.state.dataArray);
         this.props.navigation.pop();
     }
@@ -115,19 +121,19 @@ export default class CustomKeyPage extends React.Component {
             </View>
         )
         return views;
-
     }
 
     renderCheckBox(data) {
-        let leftText = data.name;
+        let isChecked = this.isRemoveKey ? false : data.checked;
+
         return (
             <CheckBox
                 style={{flex: 1, padding: 10}}
                 onClick={() => {
                     this.onClick(data)
                 }}
-                isChecked={data.checked}
-                leftText={leftText}
+                isChecked={isChecked}
+                leftText={data.name}
                 checkedImage={<Image style={{tintColor: '#694fad'}} source={require('./img/ic_check_box.png')}/>}
                 unCheckedImage={<Image style={{tintColor: '#694fad'}}
                                        source={require('./img/ic_check_box_outline_blank.png')}/>}
@@ -136,9 +142,10 @@ export default class CustomKeyPage extends React.Component {
     }
 
     onClick(data) {
+        console.log(this);
         this.setState({
             isChecked: !this.state.isChecked
-        });
+        })
         data.checked = !data.checked;
         ArrayUtils.updateArray(this.changeValues, data)
     }
@@ -146,7 +153,7 @@ export default class CustomKeyPage extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <ScrollView>
+                <ScrollView style={{flex: 1}}>
                     {this.renderView()}
                 </ScrollView>
             </View>

@@ -115,4 +115,4 @@ const styles = StyleSheet.create({
     item: {
         marginTop: 10,
     }
-})
+});
