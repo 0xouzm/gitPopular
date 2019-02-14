@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, FlatList, RefreshControl} from 'react-native';
+import {View, Text, StyleSheet, FlatList, RefreshControl, DeviceEventEmitter, ToastAndroid} from 'react-native';
 import DataRepo from '../expand/dao/DataRepo'
 import RepoCell from '../common/RespoCell'
 // import {createMaterialTopTabNavigator} from 'react-navigation'
@@ -18,7 +18,13 @@ export default class PopularPage extends React.Component {
     }
 
     componentDidMount(): void {
+        this.listener=DeviceEventEmitter.addListener('showToast', (text) => {
+            ToastAndroid.show(text, ToastAndroid.SHORT);
+        });
         this.loadData();
+    }
+    componentWillUnmount(): void {
+        this.listener&&this.listener.remove();
     }
 
     loadData() {
@@ -75,13 +81,28 @@ class PopularTab extends Component {
             loaded: true
         });
         let url = URL + this.props.tabLabel + QUERY_STR;
-        this.dataRepo.fetchNetRepo(url)
+        this.dataRepo.fetchRepo(url)
             .then(res => {
+                let items = res && res.items ? res.items : res ? res : [];
                 this.setState({
-                    res: res.items,
+                    res: items,
                     loaded: false
                 })
+
+                if (res && res.update_date && !this.dataRepo.checkDate(res.update_date)) {
+                    DeviceEventEmitter.emit('showToast','out date');
+                    return this.dataRepo.fetchNetRepo(url);
+                }else{
+                    DeviceEventEmitter.emit('showToast','show cache');
+                }
+            }).then(items => {
+            if (!items || items.length === 0) return;
+            this.setState({
+                res: items,
+                loaded: false
             })
+            DeviceEventEmitter.emit('showToast','show net');
+        })
             .catch(error => {
                 this.setState({
                     res: JSON.stringify(error)

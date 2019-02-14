@@ -5,6 +5,7 @@ import Profile from "./profile/Profile";
 import CustomKeyPage from './profile/CustomKeyPage'
 import SortKeyPage from "./profile/SortKeyPage";
 
+
 import React, {Component} from "react";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createStackNavigator} from 'react-navigation'
@@ -96,6 +97,5 @@ export default HomePage = createMaterialBottomTabNavigator({
     labeled: true,
     barStyle: {
         backgroundColor: '#694fad',
-        // backgroundColor: '#f5fcff'
     }
 });
