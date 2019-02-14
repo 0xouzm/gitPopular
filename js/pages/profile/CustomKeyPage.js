@@ -124,30 +124,7 @@ export default class CustomKeyPage extends React.Component {
     }
 
     renderCheckBox(data) {
-        let isChecked = this.isRemoveKey ? false : data.checked;
-
-        return (
-            <CheckBox
-                style={{flex: 1, padding: 10}}
-                onClick={() => {
-                    this.onClick(data)
-                }}
-                isChecked={isChecked}
-                leftText={data.name}
-                checkedImage={<Image style={{tintColor: '#694fad'}} source={require('./img/ic_check_box.png')}/>}
-                unCheckedImage={<Image style={{tintColor: '#694fad'}}
-                                       source={require('./img/ic_check_box_outline_blank.png')}/>}
-            />
-        )
-    }
-
-    onClick(data) {
-        console.log(this);
-        this.setState({
-            isChecked: !this.state.isChecked
-        })
-        data.checked = !data.checked;
-        ArrayUtils.updateArray(this.changeValues, data)
+        return <CustomCheckbox data={data} isRemoveKey={this.isRemoveKey} changeValues={this.changeValues}/>
     }
 
     render() {
@@ -161,6 +138,44 @@ export default class CustomKeyPage extends React.Component {
     }
 
 }
+
+class CustomCheckbox extends React.Component {
+    constructor(props) {
+        super(props);
+        this.isRemoveKey = this.props.isRemoveKey;
+        this.data = this.props.data;
+        this.state = {
+            isChecked: this.isRemoveKey ? false : this.data.checked
+        };
+    }
+
+    onClick(data) {
+        data.checked = !data.checked;
+        ArrayUtils.updateArray(this.props.changeValues, data)
+    }
+
+    render() {
+        const {data} = this.props;
+        const {isChecked} = this.state;
+
+        return (
+            <CheckBox
+                style={{flex: 1, padding: 10}}
+                isChecked={isChecked}
+                onClick={() => {
+                    this.setState({isChecked: !isChecked});
+                    this.onClick(data)
+                }
+                }
+                leftText={data.name}
+                checkedImage={<Image style={{tintColor: '#694fad'}} source={require('./img/ic_check_box.png')}/>}
+                unCheckedImage={<Image style={{tintColor: '#694fad'}}
+                                       source={require('./img/ic_check_box_outline_blank.png')}/>}
+            />
+        );
+    }
+}
+
 
 const styles = StyleSheet.create({
     container: {
