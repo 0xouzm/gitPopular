@@ -4,6 +4,7 @@ import {
 import React from "react";
 import WelcomePage from "../pages/WelcomePage"
 import HomePage from "../pages/HomePage";
+import RepoDetail from "../pages/RepoDetail";
 
 
 export default RootNav = createStackNavigator({
@@ -19,6 +20,20 @@ export default RootNav = createStackNavigator({
             header: null,
         }
     },
+    RepoDetail: {
+        screen: RepoDetail,
+        navigationOptions: {
+            headerStyle: {
+                backgroundColor: '#694fad',
+                elevation: 0
+            },
+            headerTitleStyle: {
+                color: 'white',
+                flex: 1,
+                textAlign: 'center'
+            },
+        }
+    }
 }, {
     initialRouteName: 'HomePage'
 })
