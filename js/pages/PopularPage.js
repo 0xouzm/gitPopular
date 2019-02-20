@@ -9,9 +9,8 @@ import {
     ToastAndroid,
     TouchableOpacity, Image
 } from 'react-native';
-import DataRepo from '../expand/dao/DataRepo'
+import DataRepo, {FLAG_STORAGE} from '../expand/dao/DataRepo'
 import RepoCell from '../common/RespoCell'
-// import {createMaterialTopTabNavigator} from 'react-navigation'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 import LanguageDao, {FLAG_LANG} from '../expand/dao/LanguageDao'
 
@@ -74,7 +73,7 @@ export default class PopularPage extends React.Component {
 class PopularTab extends Component {
     constructor(props) {
         super(props);
-        this.dataRepo = new DataRepo();
+        this.dataRepo = new DataRepo(FLAG_STORAGE.flag_popular);
         this.state = {
             res: [],
             loaded: false

@@ -63,6 +63,7 @@ export default class RepoDetail extends Component {
                 ref={webView => this.webView = webView}
                 source={{uri: this.url}}
                 onNavigationStateChange={(e) => this.onNavigationStateChange(e)}
+                startInLoadingState={true}
             />
         );
     }
