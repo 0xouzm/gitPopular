@@ -124,8 +124,7 @@ class TrendingTab extends Component {
 
     _onPressItem = (item) => {
         const {navigation} = this.props;
-        console.log(item)
-        // navigation.navigate('RepoDetail', {'item': item})
+        navigation.navigate('RepoDetail', {'item': item})
     }
 
     _renderItem = ({item}) => (<TrendingCell data={item} onPressItem={() => this._onPressItem({item})}/>)

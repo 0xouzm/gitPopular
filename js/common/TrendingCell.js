@@ -1,13 +1,20 @@
 import React, {Component} from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import HTMLView from 'react-native-htmlview'
 
 export default class TrendingCell extends Component {
     render() {
         let data = this.props.data;
+        let desc = '<p>' + data.description + '</p>';
         return <TouchableOpacity style={styles.container} onPress={this.props.onPressItem}>
             <View style={styles.cell_container}>
                 <Text style={styles.title}>{data.fullName}</Text>
-                <Text style={styles.description}>{data.description}</Text>
+                <HTMLView
+                    value={desc}
+                    onLinkPress={(url) => {
+                    }}
+                    stylesheet={{p: styles.description, a: styles.description}}
+                />
                 <Text style={styles.description}>{data.meta}</Text>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                     <View style={{flexDirection: 'row'}}>

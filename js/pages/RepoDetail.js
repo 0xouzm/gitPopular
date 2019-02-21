@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {WebView} from 'react-native-webview';
 import ViewUtils from "../utils/ViewUtils";
 
+const TRENDING_URL = 'https://github.com/'
 export default class RepoDetail extends Component {
 
 
@@ -9,7 +10,7 @@ export default class RepoDetail extends Component {
         super(props);
         const {navigation} = this.props;
         this.item = navigation.getParam('item');
-        this.url = this.item.item.html_url;
+        this.url = this.item.item.html_url ? this.item.item.html_url : TRENDING_URL + this.item.item.fullName;
         this.state = {
             canGoBack: false
         }
@@ -23,19 +24,12 @@ export default class RepoDetail extends Component {
     }
 
     static navigationOptions = ({navigation}) => ({
-        title: navigation.getParam('item').item.full_name,
+        title: navigation.getParam('item').item.full_name ? navigation.getParam('item').item.full_name : navigation.getParam('item').item.fullName,
         headerLeft: ViewUtils.getLeftButton(() => navigation.state.params.onBack()),
         headerStyle: {
             backgroundColor: '#694fad',
             elevation: 0
         },
-        // headerRight: <TouchableOpacity
-        //     onPress={() => navigation.state.params.onSave()}
-        // >
-        //     <View style={{margin: 6}}>
-        //         <Text style={styles.title}>{navigation.getParam('isRemove') ? 'Remove' : 'Save'}</Text>
-        //     </View>
-        // </TouchableOpacity>,
         headerTitleStyle: {
             color: 'white',
             flex: 1,
