@@ -40,7 +40,24 @@ export default HomePage = createMaterialBottomTabNavigator({
         }
     },
     Trending: {
-        screen: Trending,
+        screen: createStackNavigator({
+            Trending: {
+                screen: Trending,
+                navigationOptions: {
+                    title: 'Trending',
+                    headerStyle: {
+                        backgroundColor: '#694fad',
+                        elevation: 0
+                    },
+
+                    headerTitleStyle: {
+                        color: 'white',
+                        flex: 1,
+                        textAlign: 'center'
+                    },
+                }
+            },
+        }),
         navigationOptions: {
             tabBarLabel: 'Trending',
             tabBarIcon: ({tintColor}) => (
