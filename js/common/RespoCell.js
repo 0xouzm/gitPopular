@@ -1,27 +1,57 @@
 import React, {Component} from 'react';
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity, TouchableHighlight} from 'react-native';
 
 export default class RepoCell extends React.PureComponent {
+    constructor(props) {
+        super(props)
+        this.state = {
+            isFavorite: this.props.data.isFavorite,
+            favoriteIcon: this.props.data.isFavorite ? require('../../res/images/ic_star.png') : require('../../res/images/ic_unstar_transparent.png')
+        }
+    }
+
+    componentWillReceiveProps(nextProps: Readonly<P>, nextContext: any): void {
+        this.setFavoriteState(nextProps.data.isFavorite)
+    }
+
+    setFavoriteState(isFavorite) {
+        // this.props.projectModel.isFavorite = isFavorite;
+        this.setState({
+            isFavorite: isFavorite,
+            favoriteIcon: isFavorite ? require('../../res/images/ic_star.png') : require('../../res/images/ic_unstar_transparent.png')
+        })
+    }
+
+    onPressFavorite() {
+        this.setFavoriteState(!this.state.isFavorite)
+        this.props.onFavorite(this.props.data.item, !this.state.isFavorite)
+    }
+
     render() {
-        return <TouchableOpacity style={styles.container} onPress={this.props.onPressItem} >
+        let favoriteButton = <TouchableHighlight
+            style={{padding: 6}}
+            onPress={() => this.onPressFavorite()} underlayColor='transparent'>
+            <Image
+                // ref='favoriteIcon'
+                style={[{height: 22, width: 22}, {tintColor: '#694fad'}]}
+                source={this.state.favoriteIcon}/>
+        </TouchableHighlight>
+        return <TouchableOpacity style={styles.container} onPress={this.props.onPressItem}>
             <View style={styles.cell_container}>
-                <Text style={styles.title}>{this.props.data.full_name}</Text>
-                <Text style={styles.description}>{this.props.data.description}</Text>
+                <Text style={styles.title}>{this.props.data.item.full_name}</Text>
+                <Text style={styles.description}>{this.props.data.item.description}</Text>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                     <View style={{flexDirection: 'row'}}>
                         <Text style={{marginRight: 2}}>Author:</Text>
                         <Image style={{height: 22, width: 22}}
-                               source={{uri: this.props.data.owner.avatar_url}}
+                               source={{uri: this.props.data.item.owner.avatar_url}}
                         />
                     </View>
                     <View style={{flexDirection: 'row'}}>
                         <Text>Stars:</Text>
-                        <Text>{this.props.data.stargazers_count}</Text>
+                        <Text>{this.props.data.item.stargazers_count}</Text>
                     </View>
-                    <Image
-                        style={{height: 22, width: 22}}
-                        source={require('../../res/images/ic_star.png')}
-                    />
+                    {favoriteButton}
                 </View>
             </View>
         </TouchableOpacity>
